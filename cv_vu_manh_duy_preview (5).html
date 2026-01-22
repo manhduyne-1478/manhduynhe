@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Của Vu Manh Duy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(270deg, rgba(0,198,255,0.8), rgba(0,255,135,0.8)), url('https://www.transparenttextures.com/patterns/debut-light.png');
+            background-blend-mode: overlay;
+            background-size: 400% 400%, 200px 200px;
+            animation: gradientBG 8s ease infinite;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        audio { display: none; }
+
+        .heart {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: red;
+            transform: rotate(45deg);
+            opacity: 0;
+            animation: floatHeart 10s linear infinite;
+            z-index: 0;
+        }
+        .heart::before, .heart::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: red;
+            border-radius: 50%;
+        }
+        .heart::before { top: -6px; left: 0; }
+        .heart::after { left: 6px; top: 0; }
+
+        @keyframes floatHeart {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            50% { transform: translate(calc(100vw * var(--x-dir)), calc(-400px * var(--y-dir))) rotate(180deg); }
+            100% { transform: translate(calc(100vw * var(--x-dir) * -1), calc(-800px * var(--y-dir))) rotate(360deg); opacity: 0; }
+        }
+
+        .floating-text {
+            position: fixed;
+            font-size: 18px;
+            color: #ff8fb1;
+            font-weight: bold;
+            opacity: 0;
+            animation: floatText 15s linear infinite;
+            text-shadow: 0 0 10px rgba(255, 182, 193, 0.8);
+            z-index: 0;
+        }
+        @keyframes floatText {
+            0% { transform: translate(0, 0); opacity: 0; }
+            20% { opacity: 1; }
+            50% { transform: translate(calc(80vw * var(--x-dir)), calc(-300px * var(--y-dir))); }
+            100% { transform: translate(calc(80vw * var(--x-dir) * -1), calc(-700px * var(--y-dir))); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s;
+        }
+        .container:hover { transform: scale(1.02); }
+        img.avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s;
+            border: 3px solid #fff;
+        }
+        img.avatar:hover { transform: scale(1.1); }
+        h1 { font-size: 28px; margin: 10px 0; letter-spacing: 2px; text-shadow: 2px 2px 10px rgba(255,255,255,0.5); }
+        .links a {
+        position: relative;
+        overflow: hidden;
+        display:flex; align-items:center; justify-content:center; gap:8px;
+        margin:10px 0; padding:12px;
+        color:#fff; text-decoration:none; font-weight:bold;
+        border-radius:10px;
+        transition: background .3s, transform .35s cubic-bezier(0.4,0,0.2,1);
+        background: rgba(255,255,255,0.15);
+}
+/* Brand hover colors */
+        .links a.tiktok:hover { background:#010101; box-shadow:0 0 15px rgba(255,255,255,.6),0 0 30px rgba(255,255,255,.4); }
+        .links a.facebook:hover { background:#1877f2; box-shadow:0 0 15px rgba(24,119,242,.7),0 0 30px rgba(24,119,242,.4); }
+        .links a.instagram:hover { background: linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4); box-shadow:0 0 15px rgba(221,42,123,.7),0 0 30px rgba(129,52,175,.5); }
+        .links a.threads:hover { background:#000; box-shadow:0 0 15px rgba(255,255,255,.6); }
+        .links a.locket:hover { background:#ffd400; color:#000; box-shadow:0 0 15px rgba(255,212,0,.8),0 0 35px rgba(255,212,0,.6); }
+
+        /* Hiệu ứng ánh sáng riêng – hướng khác nhau */
+.links a::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    opacity:0;
+    pointer-events:none;
+}
+
+/* TikTok – sáng nở từ giữa */
+.links a.tiktok::after{
+    background:radial-gradient(circle at center, rgba(255,255,255,.9), transparent 60%);
+    transform:scale(0);
+}
+.links a.tiktok:hover::after{
+    opacity:1;
+    animation: bloom .6s ease-out forwards;
+}
+
+/* Facebook – ánh sáng rơi từ trên xuống */
+.links a.facebook::after{
+    background:linear-gradient(to bottom, rgba(24,119,242,.8), transparent);
+    transform:translateY(-100%);
+}
+.links a.facebook:hover::after{
+    opacity:1;
+    animation: drop .8s ease-out forwards;
+}
+
+/* Instagram – rót đầy từ trái sang phải */
+.links a.instagram::after{
+    background:linear-gradient(90deg,#f58529,#dd2a7b,#8134af,#515bd4);
+    transform:scaleX(0);
+    transform-origin:left;
+}
+.links a.instagram:hover::after{
+    opacity:.9;
+    animation: fill .7s ease forwards;
+}
+
+/* Threads – sóng nhẹ từ dưới lên */
+.links a.threads::after{
+    background:linear-gradient(to top, rgba(255,255,255,.8), transparent);
+    transform:translateY(100%);
+}
+.links a.threads:hover::after{
+    opacity:1;
+    animation: wave .9s ease-out forwards;
+}
+
+/* Locket – ánh vàng lan tròn */
+.links a.locket::after{
+    background:radial-gradient(circle, rgba(255,212,0,.95), transparent 65%);
+    transform:scale(0);
+}
+.links a.locket:hover::after{
+    opacity:1;
+    animation: bloom .7s ease-out forwards;
+}
+
+@keyframes bloom{to{transform:scale(1);}}
+@keyframes drop{to{transform:translateY(0);}}
+@keyframes fill{to{transform:scaleX(1);}}
+@keyframes wave{to{transform:translateY(0);}}
+    60%{left:30%;}
+    100%{left:140%;}
+}
+        50%{ left:20%; }
+        100%{ left:125%; }
+}
+            50% { left: 20%; }
+            100% { left: 125%; }
+        }
+            to { left: 125%; }
+        }
+
+        .links a:hover { background: rgba(255,255,255,0.35); transform: scale(1.12); } 
+.links a:hover::before{ animation-duration:1.1s; } 
+        .links img.icon {
+    width:24px;
+    height:24px;
+    filter: drop-shadow(0 0 6px rgba(255,255,255,.6));
+}
+
+/* Locket dùng SVG inline để đồng bộ, không trắng xoá */
+.locket-svg{width:24px;height:24px;color:#ffd400;filter:drop-shadow(0 0 6px rgba(255,212,0,.8));}
+        .gmail, .phone { margin-top:20px; font-size:18px; font-weight:bold; background: rgba(255,255,255,0.2); display:inline-block; padding:10px 15px; border-radius:8px; }
+        .phone a { color:#fff; text-decoration:none; } .phone a:hover { text-decoration:underline; }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2023/03/13/audio_5f03f65c2a.mp3?filename=hongkong1-cover.mp3" type="audio/mpeg">
+        Trình duyệt của bạn không hỗ trợ phát nhạc.
+    </audio>
+
+    <script>
+        const audio = document.getElementById('bg-music');
+        audio.volume = 0.4;
+
+        document.body.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+            }
+        }, { once: true });
+
+        const createFloatingElements = () => {
+            const container = document.body;
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.setProperty('--x-dir', Math.random() > 0.5 ? 1 : -1);
+                heart.style.setProperty('--y-dir', Math.random() > 0.5 ? 1 : -1);
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                container.appendChild(heart);
+
+                const text = document.createElement('div');
+                text.className = 'floating-text';
+                text.innerText = 'ᵀʰᵘ ᵀʰᵘʸ';
+                text.style.left = Math.random() * 100 + '%';
+                text.style.setProperty('--x-dir', Math.random() > 0.5 ? 1 : -1);
+                text.style.setProperty('--y-dir', Math.random() > 0.5 ? 1 : -1);
+                text.style.animationDelay = Math.random() * 18 + 's';
+                container.appendChild(text);
+            }
+        };
+        window.onload = createFloatingElements;
+    </script>
+
+    <div class="container">
+        <img class="avatar" src="https://i.imgur.com/3MeTHWR.jpeg" alt="Ảnh đại diện của Aiu">
+        <h1>Vu Manh Duy</h1>
+        <h2>Liên hệ</h2>
+        <div class="links">
+            <a class="tiktok" href="https://www.tiktok.com/@manhduynhe" target="_blank"><img class="icon" src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok">TikTok</a>
+            <a class="facebook" href="https://www.facebook.com/vmd147" target="_blank"><img class="icon" src="https://cdn.simpleicons.org/facebook/ffffff" alt="Facebook">Facebook</a>
+            <a class="instagram" href="https://www.instagram.com/vmd147/profilecard/?igsh=cGNsZWdiZjJhZ2hj" target="_blank"><img class="icon" src="https://cdn.simpleicons.org/instagram/ffffff" alt="Instagram">Instagram</a>
+            <a class="threads" href="https://www.threads.net/@vmd147" target="_blank"><img class="icon" src="https://cdn.simpleicons.org/threads/ffffff" alt="Threads">Threads</a>
+            <a class="locket" href="https://locket.cam/manhduydzlam" target="_blank">
+    <svg class="icon locket-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 21s-7.2-4.35-9.6-8.4C.6 9.6 2.1 6.6 5.1 6.3c1.8-.15 3.3.75 4.2 2.1.9-1.35 2.4-2.25 4.2-2.1 3 .3 4.5 3.3 2.7 6.3C19.2 16.65 12 21 12 21z" fill="currentColor"/>
+    </svg>
+    Locket
+</a>
+        </div>
+        <div class="gmail">Gmail: duyvu8833@gmail.com</div>
+        <div class="phone"><a href="https://zalo.me/0397303288" target="_blank">SĐT: 0397303288</a></div>
+    </div>
+</body>
+</html>
